@@ -6,6 +6,7 @@ import cn.bugstack.trigger.api.response.Response;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,20 +34,20 @@ public class RaffleActivityControllerTest {
     @Resource
     private CuratorFramework curatorFramework;
 
-    @Test
+    @Before
     public void test_armory() {
         Response<Boolean> response = raffleActivityService.armory(100301L);
         log.info("测试结果：{}", JSON.toJSONString(response));
     }
 
-    @Test
+    @Before
     public void test_set_dcc_value() throws Exception {
         curatorFramework.setData().forPath("/big-market-dcc/config/degradeSwitch", "close".getBytes(StandardCharsets.UTF_8));
     }
 
     @Test
     public void test_draw() {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 10; i++) {
             ActivityDrawRequestDTO request = new ActivityDrawRequestDTO();
             request.setActivityId(100301L);
             request.setUserId("xiaofuge");

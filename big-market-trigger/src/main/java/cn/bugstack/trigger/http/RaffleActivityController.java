@@ -146,7 +146,7 @@ public class RaffleActivityController implements IRaffleActivityService {
         try {
             log.info("活动抽奖开始 userId:{} activityId:{}", request.getUserId(), request.getActivityId());
             log.info("活动抽奖降级状态 {}",this.degradeSwitch);
-            if (!"open".equals(this.degradeSwitch)) {
+            if ("open".equals(this.degradeSwitch)) {
                 return Response.<ActivityDrawResponseDTO>builder()
                         .code(ResponseCode.DEGRADE_SWITCH.getCode())
                         .info(ResponseCode.DEGRADE_SWITCH.getInfo())
